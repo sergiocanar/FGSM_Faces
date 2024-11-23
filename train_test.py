@@ -15,20 +15,19 @@ from argument_parser import parser
 # Parse the arguments
 args = parser.parse_args()
 
-#CUDA for PyTorch
+# Check if CUDA is available and set the device accordingly
 use_cuda = torch.cuda.is_available()
 print(use_cuda)
 torch.manual_seed(42)
 device = torch.device("cuda" if use_cuda else "cpu")
 print(device)
 
-
-# Initialize a new W&B run
+# Initialize a new W&B run if specified
 if args.use_wandb:
     wandb.init(project='celeb_faces_final', config=args)
 
 # Define paths
-this_dir = os.path.dirname(os.path.abspath(__file__))  # Get the directory of the current file'
+this_dir = os.path.dirname(os.path.abspath(__file__))  # Get the directory of the current file
 print(this_dir)
 data_dir = os.path.join(this_dir, 'data')  # Define the data directory
 img_dir = os.path.join(data_dir, 'face_recognition', 'Faces')  # Define the image directory
@@ -46,17 +45,19 @@ transforms_set = transforms.Compose([
 # Load the dataset
 dataset = CelebFacesDataset(data_df, img_dir, transforms_set)
 
+# Split the dataset into training and validation sets
 train_size = int(0.8 * len(dataset))  # Define the size of the training set
 test_size = len(dataset) - train_size  # Define the size of the validation set
+train_dataset, test_dataset = random_split(dataset, [train_size, test_size])  # Split the dataset
 
-train_dataset, test_dataset = random_split(dataset, [train_size, test_size])  # Split the dataset into training and validation sets
-
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)  # Create a DataLoader for the training set
-test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)  # Create a DataLoader for the validation set
+# Create DataLoaders for the training and validation sets
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)  # DataLoader for the training set
+test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)  # DataLoader for the validation set
 
 # Define the model
 num_classes = 31  # Define the number of classes
 
+# Create the model based on the specified architecture
 if args.model == 'resnet18':
     model = get_resnet18_model(num_classes, device)  # Create a ResNet-18 model
 elif args.model == 'resnet101':
@@ -66,13 +67,11 @@ elif args.model == 'vgg16':
 elif args.model == 'resnet':
     model = ResNet(ResidualBlock, [3, 4, 6,  3, 2], num_classes)  # Create a ResNet model
 
-
 # Define the loss function and optimizer
 criterion = torch.nn.CrossEntropyLoss()  # Define the loss function
-optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)  # Define
+optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)  # Define the optimizer
 
-# Train the model
-
+# Function to train the model
 def train(dataloader, model, criterion, optimizer, epoch, adjust_lr_fn=None):
     model.train()
     running_loss = 0.0
@@ -100,6 +99,7 @@ def train(dataloader, model, criterion, optimizer, epoch, adjust_lr_fn=None):
     if adjust_lr_fn:
         adjust_lr_fn(optimizer, args.gamma, epoch, args.lr)
 
+# Function to test the model
 def test(dataloader, model, criterion, epoch):
     model.eval()
     test_loss = 0
@@ -140,12 +140,13 @@ def test(dataloader, model, criterion, epoch):
 
     return test_loss, test_accuracy, precision_score_, recall_score_, f1_score_, accuracy_score_
 
+# Function to adjust the learning rate
 def adjust_lr(optimizer, gamma, step, lr):
     lr = lr * (gamma ** step)
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
 
-
+# Main training loop
 if __name__ == '__main__':
     best_accuracy = 0
     save_model_dir = os.path.join(this_dir, 'models')
@@ -153,7 +154,6 @@ if __name__ == '__main__':
         os.makedirs(save_model_dir)
     
     pth_path = os.path.join(save_model_dir, f'{args.model}_celeb_faces.pth')
-    
     
     print('Training model with this configuration:')
     print('Device:', device)
@@ -175,7 +175,3 @@ if __name__ == '__main__':
                 torch.save(model.state_dict(), pth_path)
     except KeyboardInterrupt:
         print('Training interrupted')
-
-
-
-    
