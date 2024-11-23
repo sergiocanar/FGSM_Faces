@@ -62,10 +62,8 @@ if args.model == 'resnet18':
     model = get_resnet18_model(num_classes, device)  # Create a ResNet-18 model
 elif args.model == 'resnet101':
     model = get_resnet101_model(num_classes, device)  # Create a ResNet-101 model
-elif args.model == 'vgg16':
-    model = get_vgg16_model(num_classes, device)  # Create a VGG-16 model
 elif args.model == 'resnet':
-    model = ResNet(ResidualBlock, [3, 4, 6,  3, 2], num_classes)  # Create a ResNet model
+    model = ResNet(ResidualBlock, [3, 4, 6,  3, 2], num_classes).to(device=device)  # Create a ResNet model
 
 # Define the loss function and optimizer
 criterion = torch.nn.CrossEntropyLoss()  # Define the loss function
