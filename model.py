@@ -1,5 +1,6 @@
 import torch 
 import torch.nn as nn
+from torchvision.models import vgg16, resnet101, resnet18, VGG16_Weights, ResNet18_Weights, ResNet101_Weights
 
 class ResNet(nn.Module):
     def __init__(self, block, layers, num_classes):
@@ -70,3 +71,25 @@ class ResidualBlock(nn.Module):
         out += residual
         out = self.relu(out)
         return out
+
+
+def get_resnet18_model(num_classes, device='cuda'):
+    # Use the weights argument instead of pretrained=True
+    model = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
+    model.fc = nn.Linear(model.fc.in_features, num_classes)
+    
+    return model.to(device)
+
+def get_resnet101_model(num_classes, device='cuda'):
+    # Use the weights argument instead of pretrained=True
+    model = resnet101(weights=ResNet101_Weights.IMAGENET1K_V1)
+    model.fc = nn.Linear(model.fc.in_features, num_classes)
+    
+    return model.to(device)
+
+def get_vgg16_model(num_classes, device='cuda'):
+    # Use the weights argument instead of pretrained=True
+    model = vgg16(weights=VGG16_Weights.IMAGENET1K_V1)
+    model.classifier[6] = nn.Linear(model.classifier[6].in_features, num_classes)
+    
+    return model.to(device)
