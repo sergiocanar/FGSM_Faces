@@ -49,8 +49,7 @@ def get_dataset_distribution(dataset_csv, output_dir):
         df = df.drop([0], axis=0)  # Drop the first row if it contains headers
         unique_labels = np.unique(df[1].values)
         labels_count = df[1].value_counts()
-        print(f'Unique labels: {unique_labels}')
-        print(f'Labels count: {labels_count}')
+        plt.figure(figsize=(15, 15))
         hist = labels_count.plot(kind='bar', title='Dataset Distribution')
         hist.set_xlabel('Labels')
         hist.set_ylabel('Count')
@@ -92,4 +91,6 @@ if __name__ == '__main__':
         print(f"Error processing images: {e}")
         
     output_dir_hist = os.path.join(this_dir, 'resources', 'dataset_distribution.png')
+    output_dir_hist_names = os.path.join(this_dir, 'resources', 'dataset_distribution_names.png')
     get_dataset_distribution(output_dir_csv, output_dir_hist)
+    get_dataset_distribution(data_csv, output_dir_hist_names)
