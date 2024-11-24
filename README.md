@@ -54,4 +54,18 @@ Para realizar el ataque FGSM con un modelo diferente, deberás modificar dos var
   <img src="./resources/weights.png" alt="pesos" width="1000">
 </div>
 
+Listo! Eres libre de experimentar los epsilons y modelos que desees para entener el FGSM
 
+### Resultados
+
+Estos son los resultados que obtuvimos en los 3 modelos que probamos, en estos se ve el efecto del epsilon ($\epsilon$) en el desempeño del modelo, mostrando así la importancia de estudiar la vulnerabilidad de los modelos de ML y IA.
+
+<div style="text-align: center;">
+  <img src="./resources/results_subplots.png" alt="pesos" width="1000">
+</div>
+
+Ahora, estos son los resultados cualitativos de nuestro proyecto, aquí se aprecia una mínima perturbación en las imágenes de entrada hace que el modelo genere predicciones incorrectas.
+
+<div style="text-align: center;">
+  <img src="./results/examples_resnet18.png" alt="pesos" width="1000">
+</div>
