@@ -42,6 +42,24 @@ def plot_dataset_samples(n_samples, images_path_lt, labels_lt, save_path):
         print(f'Sample plot saved at: {save_path}')
     except Exception as e:
         print(f"Error plotting dataset samples: {e}")
+        
+def get_dataset_distribution(dataset_csv, output_dir):
+    try:
+        df = pd.read_csv(dataset_csv, sep=',', header=None)
+        df = df.drop([0], axis=0)  # Drop the first row if it contains headers
+        unique_labels = np.unique(df[1].values)
+        labels_count = df[1].value_counts()
+        print(f'Unique labels: {unique_labels}')
+        print(f'Labels count: {labels_count}')
+        hist = labels_count.plot(kind='bar', title='Dataset Distribution')
+        hist.set_xlabel('Labels')
+        hist.set_ylabel('Count')
+        plt.savefig(output_dir)
+        plt.close()
+        print(f'Dataset distribution plot saved at: {output_dir}')
+        
+    except Exception as e:
+        print(f"Error getting data histogram: {e}")
 
 if __name__ == '__main__':
     np.random.seed(42)  # Set seed for reproducibility
@@ -49,11 +67,11 @@ if __name__ == '__main__':
     this_dir = os.path.dirname(os.path.abspath(__file__))
     data_dir = os.path.join(this_dir, 'data')
     data_csv = os.path.join(data_dir, 'face_recognition', 'Dataset.csv')
-    output_dir = os.path.join(data_dir, 'face_recognition', 'dataset_faces.csv')
+    output_dir_csv = os.path.join(data_dir, 'face_recognition', 'dataset_faces.csv')
     images_dir = os.path.join(data_dir, 'face_recognition', 'Faces')
     output_dir_img = os.path.join(this_dir, 'resources', 'dataset_samples.png')
 
-    get_data(data_csv, output_dir)
+    get_data(data_csv, output_dir_csv)
 
     n_samples = 16
     images_path_lt = []
@@ -72,3 +90,6 @@ if __name__ == '__main__':
         plot_dataset_samples(n_samples, images_path_lt, labels_lt, output_dir_img)
     except Exception as e:
         print(f"Error processing images: {e}")
+        
+    output_dir_hist = os.path.join(this_dir, 'resources', 'dataset_distribution.png')
+    get_dataset_distribution(output_dir_csv, output_dir_hist)
