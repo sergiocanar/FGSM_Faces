@@ -10,8 +10,16 @@
 # Machine Learning Adversarial: **Fast Gradient Sign Method (FGSM) en el Reconocimiento de Rostros**
 
 ## Preparación del repositorio
+Para usar este repositorio es necesario que primero instales los requerimientos para correr el código, para ello te recomendamos crear un ambiente de anaconda e instalar las librerías necesarias en este. Para realizar esto puedes correr los siguientes comandos:
 
-Para usar este repositorio, es necesario que descargues los datos y los pesos del modelo a utilizar para el **FGSM**. Entonces, lo primero que deberás hacer es descargar los [datos](https://drive.google.com/drive/folders/1cZ_pz10iFS_ydMxQ8kpAqV5EbJ4wmbF_?usp=sharing) y descomprimirlos para que tengas la siguiente estructura de carpetas:
+```bash
+conda create -n fgsm_faces python=3.10.2
+
+```
+
+
+
+Luego es necesario que descargues los datos y los pesos del modelo a utilizar para el **FGSM**. Entonces, lo primero que deberás hacer es descargar los [datos](https://drive.google.com/drive/folders/1cZ_pz10iFS_ydMxQ8kpAqV5EbJ4wmbF_?usp=sharing) y descomprimirlos para que tengas la siguiente estructura de carpetas:
 
 ```
 FGSM_faces/data/
