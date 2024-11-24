@@ -69,3 +69,9 @@ Ahora, estos son los resultados cualitativos de nuestro proyecto, aquí se aprec
 <div style="text-align: center;">
   <img src="./results/examples_resnet18.png" alt="pesos" width="1000">
 </div>
+
+### Análisis
+
+Como podemos observar, en los tres modelos, a medida que ϵ aumenta, la precisión disminuye drásticamente, empezandoen los valores bajos de ϵ. Esto indica que los modelos son sensibles incluso a pequeñas perturbaciones en los datos de entrada. De hecho, al mirar los resultados cualitativos, podemos ver que desde un ϵ de 0.0001 empiezan a haber malas clasificaciones de los rostros, lo cual incrementa a medida que se aumenta el épsilon. Esta baja tolerancia en los modelos ante perturbaciones pequeñas hace que se vuelvan mucho menos efectivos frente a ataques adversariales o ruido. De hecho, es relevante notar que todos los modelos evaluados comparten una alta vulnerabilidad frente a perturbaciones adversariales, ya que, incluso las arquitecturas más complejas, como ResNet-101, no muestran ventajas significativas frente a ResNet-18 o la versión base en términos de resistencia a estos ataques.
+
+Este pequeño análisis resalta la importancia de implementar estrategias para mejorar la robustez de los modelos frente a ataques adversariales, ya que gran parte de estos modelos son los que se utilizan en aplicaciones críticas de la vida real, como la detección de enfermedades en imágenes médicas, la conducción autónoma, la seguridad en sistemas de vigilancia y el procesamiento de datos financieros.
