@@ -41,3 +41,11 @@ FGSM_faces/
  │      └──resnet101_celeb_faces.pth
 
 ```
+
+**Todos los modelos fueron entrenados en una GPU Nvida GeForce RTX 4060 de 8 Gb**.
+
+## Utilizar el repositorio
+
+El archivo que contiene la implementación del **FGSM** es `Grupo1_FGSM.ipynb`. Al ejecutar este archivo, encontrarás una descripción detallada sobre el funcionamiento de este método de *Machine Learning Adversarial*, así como una visión general de la importancia de esta área de investigación en *Machine Learning* e *Inteligencia Artificial*.
+
+Para realizar el ataque FGSM con un modelo diferente, deberás modificar dos variables: `model` y `pretrained_model`. Estas variables definen el modelo que será sometido al ataque. Puedes cambiarlas según el modelo que desees probar, pero asegúrate de que los modelos y sus pesos coincidan para evitar errores al cargar los pesos. A continuación, te mostramos la sección del código donde deberás realizar estos cambios.
