@@ -1,97 +1,101 @@
-# Proyecto ML for Engineering - Grupo 1
+## Project ML for Engineering - Group 1
 
-## Integrantes
+## Members
 - Juan Camilo Rojas Hernández (202121526)  
 - Sergio Andrés Canar Lozano (202020383)  
 - Wilman Sánchez Hernández (202116779)  
 
 ---
 
-# Machine Learning Adversarial: **Fast Gradient Sign Method (FGSM) en el Reconocimiento de Rostros**
+## Adversarial Machine Learning: **Fast Gradient Sign Method (FGSM) in Face Recognition**
 
-## Preparación del repositorio
-Para usar este repositorio es necesario que primero instales los requerimientos para correr el código, para ello te recomendamos crear un ambiente de [anaconda](https://www.anaconda.com/download/success) e instalar las librerías necesarias en este. Para realizar esto puedes correr los siguientes comandos:
+## Repository preparation
+To use this repository it is necessary that you first install the requirements to run the code, for this we recommend you to create an [anaconda](https://www.anaconda.com/download/success) environment and install the necessary libraries on it. To do this you can run the following commands:
 
-Primero, para crear el ambiente, en este caso lo llamamos "fgsm_faces"
+First, to create the environment, in this case we call it ‘fgsm_faces’.
 
-```bash
+````bash
 conda create -n fgsm_faces python=3.10.2
 
 ```
-Ahora, activamos el ambiente:
-```bash
+Now, we activate the environment:
+````bash
   conda activate fgsm_faces
 
 ```
 
-Ahora, instalamos las librerías presentes en `requirements.txt`
+Now, we install the libraries in ``requirements.txt``.
 
-```bash
+````bash
   pip install -r requirements.txt
 
 ```
 
-Luego es necesario que descargues los datos y los pesos del modelo a utilizar para el **FGSM**. Entonces, lo primero que deberás hacer es descargar los [datos](https://drive.google.com/drive/folders/1cZ_pz10iFS_ydMxQ8kpAqV5EbJ4wmbF_?usp=sharing) y descomprimirlos para que tengas la siguiente estructura de carpetas:
+Next, you need to download the data and model weights to use for the **FGSM**. So, the first thing you need to do is download the [data](https://drive.google.com/drive/folders/1cZ_pz10iFS_ydMxQ8kpAqV5EbJ4wmbF_?usp=sharing) and unzip it so that you have the following folder structure:
 
 ```
 FGSM_faces/data/
  │
  ├───face_recognition
- │      ├──Faces
- │      │      └──Akshay Kumar_0.jpg
- │      │      └──Akshay Kumar_1.jpg
- │      │      └──...
- │      ├──Original Images
- │      │      └──Akshay Kumar
- │      │      └──Alexandra Daddario
- │      │      └──...
- │      ├──data_txt.txt
- │      ├──dataset_faces.csv
- │      ├──Dataset.csv
+ │ ├───Faces
+ │ │ └──└─Akshay Kumar_0.jpg
+ │ │ └───Akshay Kumar_1.jpg
+ │ │ └──...
+ │ ├───Original Images
+ │ │ └───Akshay Kumar
+ │ │ └└──Alexandra Daddario
+ │ │ └──...
+ │ ├───data_txt.txt
+ │ │ ├───dataset_faces.csv
+ │ ├───Dataset.csv
 ```
 
-Ahora para los pesos de los modelos usados:
+Now for the weights of the models used:
 
 ```
 FGSM_faces/
  │
- ├───models
- │      └──resnet_celeb_faces.pth
- │      └──resnet18_celeb_faces.pth
- │      └──resnet101_celeb_faces.pth
+ ├────models
+ │ └───resnet_celeb_faces.pth
+ │ └└──resnet18_celeb_faces.pth
+ │ └└───resnet101_celeb_faces.pth
 
 ```
 
-**Todos los modelos fueron entrenados en una GPU Nvidia GeForce RTX 4060 de 8 Gb**.
+**All models were trained in a GPU Nvidia GeForce RTX 4060 de 8 Gb**.
 
-## Utilizar el repositorio
+## Use the repository
 
-El archivo que contiene la implementación del **FGSM** es `Grupo1_FGSM.ipynb`. Al ejecutar este archivo, encontrarás una descripción detallada sobre el funcionamiento de este método de *Machine Learning Adversarial*, así como una visión general de la importancia de esta área de investigación en *Machine Learning* e *Inteligencia Artificial*.
+The file containing the **FGSM** implementation is `Group1_FGSM.ipynb`. By running this file, you will find a detailed description of how this *Adversarial Machine Learning* method works, as well as an overview of the importance of this area of research in *Machine Learning* and *Artificial Intelligence*.
 
-Para realizar el ataque FGSM con un modelo diferente, deberás modificar dos variables: `model` y `pretrained_model`. Estas variables definen el modelo que será sometido al ataque. Puedes cambiarlas según el modelo que desees probar, pero asegúrate de que los modelos y sus pesos coincidan para evitar errores al cargar los pesos. A continuación, te mostramos la sección del código donde deberás realizar estos cambios.
+To perform the FGSM attack with a different model, you must modify two variables: `model` and `pretrained_model`. These variables define the model that will be subjected to the attack. You can change them according to the model you want to test, but make sure that the models and their weights match to avoid errors when loading the weights. Below is the section of the code where you will need to make these changes.
 
-<div style="text-align: center;">
-  <img src="./resources/weights.png" alt="pesos" width="1000">
+<div style=‘text-align: center;’>
+  <img src=‘./resources/weights.png’ alt=‘pesos’ width=‘1000’>
 </div>
 
-Listo! Eres libre de experimentar los epsilons y modelos que desees para entener el FGSM
+All set! You're free to change the model and experiment with any model you want. 
 
-### Resultados
+### Results
 
-Estos son los resultados que obtuvimos en los 3 modelos que probamos, en estos se ve el efecto del epsilon ($\epsilon$) en el desempeño del modelo, mostrando así la importancia de estudiar la vulnerabilidad de los modelos de ML y IA.
-
-<div style="text-align: center;">
-  <img src="./resources/results_subplots.png" alt="pesos" width="1000">
-</div>
-
-Ahora, estos son los resultados cualitativos de nuestro proyecto, aquí se aprecia una mínima perturbación en las imágenes de entrada hace que el modelo genere predicciones incorrectas.
+Here are the results we obtained for the three models we tested, showing the effect of epsilon ($\epsilon$) on the model's performance. This highlights the importance of studying the vulnerability of ML and AI models.
 
 <div style="text-align: center;">
-  <img src="./results/examples_resnet18.png" alt="pesos" width="1000">
+  <img src="./resources/results_subplots.png" alt="weights" width="1000">
 </div>
 
-### Análisis
+Now, these are the qualitative results of our project, where we can see that a minimal perturbation in the input images causes the model to produce incorrect predictions.
 
-Como podemos observar, en los tres modelos, a medida que ϵ aumenta, la precisión disminuye drásticamente, empezandoen los valores bajos de ϵ. Esto indica que los modelos son sensibles incluso a pequeñas perturbaciones en los datos de entrada. De hecho, al mirar los resultados cualitativos, podemos ver que desde un ϵ de 0.0001 empiezan a haber malas clasificaciones de los rostros, lo cual incrementa a medida que se aumenta el épsilon. Esta baja tolerancia en los modelos ante perturbaciones pequeñas hace que se vuelvan mucho menos efectivos frente a ataques adversariales o ruido. De hecho, es relevante notar que todos los modelos evaluados comparten una alta vulnerabilidad frente a perturbaciones adversariales, ya que, incluso las arquitecturas más complejas, como ResNet-101, no muestran ventajas significativas frente a ResNet-18 o la versión base en términos de resistencia a estos ataques.
+<div style="text-align: center;">
+  <img src="./results/examples_resnet18.png" alt="weights" width="1000">
+</div>
 
-Este pequeño análisis resalta la importancia de implementar estrategias para mejorar la robustez de los modelos frente a ataques adversariales, ya que gran parte de estos modelos son los que se utilizan en aplicaciones críticas de la vida real, como la detección de enfermedades en imágenes médicas, la conducción autónoma, la seguridad en sistemas de vigilancia y el procesamiento de datos financieros.
+### Analysis
+
+As we can observe, in all three models, as ϵ increases, accuracy drops dramatically, starting with low values of ϵ. This indicates that the models are sensitive even to small perturbations in the input data. In fact, looking at the qualitative results, we can see that with an ϵ of 0.0001, misclassifications of faces begin to occur, and these increase as epsilon grows. This low tolerance of the models to small perturbations makes them much less effective against adversarial attacks or noise.
+
+In fact, it is important to note that all the evaluated models exhibit a high vulnerability to adversarial perturbations, as even the most complex architectures, such as ResNet-101, do not show significant advantages over ResNet-18 or the base version in terms of resistance to these attacks.
+
+This brief analysis underscores the importance of implementing strategies to enhance the robustness of models against adversarial attacks, especially since many of these models are used in critical real-life applications, such as disease detection in medical imaging, autonomous driving, security in surveillance systems, and financial data processing.
+
+
