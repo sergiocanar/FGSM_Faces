@@ -1,4 +1,4 @@
-## Project ML for Engineering - Group 1
+# Project ML for Engineering - Group 1
 
 ## Members
 - Juan Camilo Rojas Hernández (202121526)  
@@ -9,29 +9,32 @@
 
 ## Adversarial Machine Learning: **Fast Gradient Sign Method (FGSM) in Face Recognition**
 
-## Repository preparation
-To use this repository it is necessary that you first install the requirements to run the code, for this we recommend you to create an [anaconda](https://www.anaconda.com/download/success) environment and install the necessary libraries on it. To do this you can run the following commands:
+---
 
-First, to create the environment, in this case we call it ‘fgsm_faces’.
+## Repository Preparation
 
-````bash
-conda create -n fgsm_faces python=3.10.2
+To use this repository, you need to install the required dependencies. We recommend creating an [Anaconda](https://www.anaconda.com/download/success) environment and installing the necessary libraries within it. Follow the steps below:
 
-```
-Now, we activate the environment:
-````bash
+1. Create the environment (here, named `fgsm_faces`):
+   ```bash
+   conda create -n fgsm_faces python=3.10.2
+
+
+2. Activate the environment:
+
+```bash
   conda activate fgsm_faces
 
 ```
 
-Now, we install the libraries in ``requirements.txt``.
+3. Install the libraries in ``requirements.txt``.
 
-````bash
+```bash
   pip install -r requirements.txt
 
 ```
 
-Next, you need to download the data and model weights to use for the **FGSM**. So, the first thing you need to do is download the [data](https://drive.google.com/drive/folders/1cZ_pz10iFS_ydMxQ8kpAqV5EbJ4wmbF_?usp=sharing) and unzip it so that you have the following folder structure:
+4. Download the data and model weights to use for the **FGSM**. So, the first thing you need to do is download the [data](https://drive.google.com/drive/folders/1cZ_pz10iFS_ydMxQ8kpAqV5EbJ4wmbF_?usp=sharing) and unzip it so that you have the following folder structure:
 
 ```
 FGSM_faces/data/
