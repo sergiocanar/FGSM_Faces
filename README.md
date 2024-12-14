@@ -74,7 +74,7 @@ The file containing the **FGSM** implementation is `Group1_FGSM.ipynb`. By runni
 To perform the FGSM attack with a different model, you must modify two variables: `model` and `pretrained_model`. These variables define the model that will be subjected to the attack. You can change them according to the model you want to test, but make sure that the models and their weights match to avoid errors when loading the weights. Below is the section of the code where you will need to make these changes.
 
 <div style=‘text-align: center;’>
-  <img src=‘./resources/weights.png alt=‘pesos’ width=‘1000’>
+  <img src="./resources/weights.png" alt=‘pesos’ width=‘1000’>
 </div>
 
 All set! You're free to change the model and experiment with any model you want. 
